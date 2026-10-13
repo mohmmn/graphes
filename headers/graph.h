@@ -3,9 +3,14 @@
 
 #include <vector>
 
+struct Edge {
+    int to;
+    int dist;
+};
+
 class Graph {
 protected:
-    std::vector<std::vector<int>> adjacencyList;
+    std::vector<std::vector<Edge>> adjacencyList;
     int numberOfNodes;
     // methode utilitaire DFS qui utilise la récursivité
     void dfsRec(int node, std::vector<bool> &visited, std::vector<int> &path) const;
@@ -16,12 +21,17 @@ public:
     virtual ~Graph();
     // getters
     int getNumberOfNodes() const;
-    virtual int getNumberOfEdges() const = 0;
     const std::vector<int>& getNeighbours(int node) const;
+    // renvoie -1 s'il n'y a pas d'arete entre u et v
+    int getDistEdge(int u, int v) const;
     // methodes abstraites
-    virtual void addEdge(int u, int v) = 0;
+    virtual void addEdge(int u, int v, int dist) = 0;
+    virtual int getNumberOfEdges() const = 0;
     // algorithmes de parcours
     std::vector<int> DFS(int node) const;
     std::vector<int> BFS(int node) const;
+    // algorithme pour les abres
+    Graph Kruskal();
+    Graph Prim(int node);
 };
 #endif // GRAPH_H_

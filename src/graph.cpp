@@ -16,8 +16,17 @@ int Graph::getNumberOfNodes() const {
     return this->numberOfNodes;
 }
 
-const std::vector<int>& Graph::getNeighbours(int node) const {
+const std::vector<Edge>& Graph::getNeighbours(int node) const {
     return this->adjacencyList[node];
+}
+
+int Graph::getDistEdge(int u, int v) const {
+    for (const Edge& e : this->adjacencyList[u]) {
+        if (e.to == v) {
+            return e.dist;
+        }
+    }
+    return -1;
 }
 
 std::vector<int> Graph::DFS(int node) const {
@@ -30,9 +39,9 @@ std::vector<int> Graph::DFS(int node) const {
 void Graph::dfsRec(int node, std::vector<bool> &visited, std::vector<int> &path) const{
     visited[node] = true;
     path.push_back(node);
-    for (int i : getNeighbours(node)) {
-        if (!visited[i]) {
-            dfsRec(i, visited, path);
+    for (const Edge& e : getNeighbours(node)) {
+        if (!visited[e.to]) {
+            dfsRec(e.to, visited, path);
         }
     }
 }
@@ -47,10 +56,10 @@ std::vector<int> Graph::BFS(int node) const {
         int u = aVisiter.front();
         aVisiter.pop();
         path.push_back(u);
-        for (int i : getNeighbours(u)) {
-            if (!visited[i]) {
-                visited[i] = true;
-                aVisiter.push(i);
+        for (Edge e : getNeighbours(u)) {
+            if (!visited[e.to]) {
+                visited[e.to] = true;
+                aVisiter.push(e.to);
             }
         }
     }

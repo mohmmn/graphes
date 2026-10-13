@@ -8,7 +8,7 @@ void OrientedGraph::addEdge(int u, int v){
 
 int OrientedGraph::getNumberOfEdges() const {
     int numberOfEdges = 0;
-    for (const std::vector<int>& neighbours : this->adjacencyList) {
+    for (const std::vector<Edge>& neighbours : this->adjacencyList) {
         numberOfEdges += static_cast<int>(neighbours.size());
     }
     return numberOfEdges;

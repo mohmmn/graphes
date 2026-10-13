@@ -6,7 +6,7 @@
 class NonOrientedGraph : public Graph {
     public:
     NonOrientedGraph(int n);
-    void addEdge(int u, int v) override;
+    void addEdge(int u, int v,int dist) override;
     int getNumberOfEdges() const override;
 };
 #endif // NONORIENTEDGRAPH_H_
