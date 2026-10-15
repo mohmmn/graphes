@@ -1,5 +1,6 @@
 #include "../headers/orientedGraph.h"
 #include "../headers/nonOrientedGraph.h"
+#include "../headers/acpm.h"
 
 #include <iostream>
 #include <vector>
@@ -54,6 +55,21 @@ int main() {
     d.addEdge(3, 4, 6);
     d.addEdge(4, 1, 2);
     printGraph(d, 0);
+
+    std::cout << "=== Kruskal sur un graphe non oriente de 5 sommets ===" << std::endl;
+    NonOrientedGraph k(5);
+    k.addEdge(0, 1, 4);
+    k.addEdge(0, 2, 1);
+    k.addEdge(1, 2, 2);
+    k.addEdge(1, 3, 5);
+    k.addEdge(2, 3, 8);
+    k.addEdge(3, 4, 3);
+    k.addEdge(2, 4, 9);
+    std::cout << "--- Graphe de depart ---" << std::endl;
+    printGraph(k, 0);
+    std::cout << "--- ACPM obtenu (attendu : 0-2, 1-2, 3-4, 1-3, poids total 11) ---" << std::endl;
+    ACPM acpm = k.Kruskal();
+    printGraph(acpm, 0);
 
     return 0;
 }
