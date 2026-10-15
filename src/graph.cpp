@@ -108,7 +108,7 @@ std::vector<FullEdge> Graph::sortFullEdges() const {
     }
 
     std::vector<int> initParents(const Graph& g){
-        std::vector<int> parents(g->getNumberOfNodes());
+        std::vector<int> parents(g.getNumberOfNodes());
         for (int i = 0; i < parents.size();i++){
             parents[i] = i;
         }
@@ -116,7 +116,7 @@ std::vector<FullEdge> Graph::sortFullEdges() const {
     }
 ACPM Graph::Kruskal() {
     ACPM acpm(this->numberOfNodes);
-    std::vector<int> parents = initParents((*this));
+    std::vector<int> parents = initParents(*this);
     std::vector<FullEdge> sortedEdges = this->sortFullEdges();
     int numberOfEdges = 0;
     int i = 0;
