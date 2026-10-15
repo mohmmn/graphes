@@ -144,6 +144,56 @@ bfs(s):
                 marquer v comme visité
                 enfiler v
 ```
+## Arbre couvrant de poids minimal :
+
+Un ACPM (arbre couvrant de poids minimal) est un graphe obtenu en déduisant les arrêtes "lourdes" pour ne garder que les plus "légères" qui permettent de couvrir tout le graphe, c'est à dire conserver la connexité.
+
+Il a quelques particularités notamment : 
+1- Le nombre de noeuds d'arbre couvrant de poids minimal est le même que celui du graphe de base tel que : 
+ACPM(V) = Graph(V)
+
+2- Le nombre d'arrêtes du graphe couvrant de poids minimal est égal au nombre de noeuds - 1 du graphe de base tel que : ACPM(E) = Graph(V) - 1 
+
+3- Un ACPM ne contient pas de cycles
+
+4- Il est possible qu'il y ai différents arbres couvrant de poids minimaux au sein d'un même graphe, il suffirait d'interchanger deux arrêtes **de même poids** qui conservent la règle 2 et 3 pour en obtenir un autre.
+
+Il existe plusieurs algorithmes qui permettent de déduire l'arbre couvrant de poids minimal d'un graphe, nous verrons ici Kruskal & Prim, et on les comparera. 
+
+## Algorithme de Kruskal 
+
+**Principe :** Si on connaît le poids de chaque arête du graphe, alors on peut les trier par ordre croissant et choisir les plus petites, tout en évitant de créer des cycles, jusqu'à obtenir un arbre couvrant de poids minimal (ACPM).
+
+**Algo :**
+- On dispose d'un tableau trié contenant les arêtes du graphe.
+- Tant que le nombre d'arêtes de l'ACPM est inférieur à \(V - 1\) et que le tableau n'est pas entièrement parcouru :
+  - On prend la prochaine arête du tableau.
+  - Si elle ne crée pas de cycle, on l'ajoute à l'ACPM.
+  - Sinon, on la refuse et on passe à la suivante.
+- On retourne l'ACPM.
+
+**Comment l'implémenter ?**
+
+**Étape 1 :** Écrire une méthode qui trie les arêtes du graphe selon leur poids et les place dans un tableau par ordre croissant.
+
+**Étape 2 :** Définir des méthodes Union() et Find() ainsi qu'un tableau pour gérer les groupes de sommets et détecter les cycles. C'est la partie la plus tricky mais une fois qu'on comprends le principe c'est très facile.
+
+**Étape 3 :** Créer un nouveau graphe contenant les mêmes sommets, mais aucune arête. Ce graphe servira à construire l'ACPM.
+
+**Étape 4 :** Initialiser une boucle principale qui parcourt le tableau trié tant que le nombre d'arêtes de l'ACPM est inférieur à \(V - 1\) et que toutes les arêtes n'ont pas été parcourues.
+
+**Étape 5 :** Pour chaque arête, utiliser *Union-Find* pour vérifier si ses deux sommets appartiennent déjà au même groupe. Si c'est le cas, l'ajout de l'arête créerait un cycle.
+
+**Étape 6 :** Si les deux sommets appartiennent à des groupes différents, ajouter l'arête à l'ACPM et fusionner leurs groupes avec la méthode Union(). Sinon, passer à l'arête suivante.
+
+**Étape 7 :** Retourner l'ACPM obtenu.
+
+Inconvénient :
+
+Kruskal est un algorithme "Aveugle", il n'a pas vraiment de visibilité sur l'ensemble du graphe.
+
+Kruskal n'est pas très efficace en terme de complexité algorithmique quand on travail sur des graphes très denses, c'est pour cela qu'on va s'attaquer à Prim.
+### 
 
 ## Comment lancer le programme
 

@@ -126,7 +126,7 @@ ACPM Graph::Kruskal() {
         if (find(parents,from) != find(parents,to)){
             acpm.addEdge(from,to,sortedEdges[i].dist);
             numberOfEdges++;
-            unite(parents*,from,to);
+            unite(parents,from,to);
         }
         i++;
     }
