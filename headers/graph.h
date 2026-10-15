@@ -8,11 +8,15 @@ struct Edge {
     int dist;
 };
 
+// declaration anticipee : ACPM herite (indirectement) de Graph, donc on ne peut pas inclure acpm.h ici
+class ACPM;
+
 struct FullEdge {
     int from;
     int to;
     int dist;
 };
+
 class Graph {
 protected:
     std::vector<std::vector<Edge>> adjacencyList;
@@ -39,11 +43,11 @@ public:
     std::vector<int> DFS(int node) const;
     std::vector<int> BFS(int node) const;
 
-    // algorithme pour les arbres couvrant de poids minimal
-    Graph Kruskal();
-    Graph Prim(int node);
-
     // algorithme de tri
     std::vector<FullEdge> sortFullEdges() const;
+    // algorithme pour les arbres couvrant de poids minimal
+    ACPM Kruskal();
+    ACPM Prim(int node);
+    
 };
 #endif // GRAPH_H_

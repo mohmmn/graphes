@@ -2,7 +2,7 @@
 // Created by simo on 02/10/2026.
 //
 #include "../headers/graph.h"
-
+#include "../headers/acpm.h"
 #include <queue>
 
 Graph::Graph(int n) {
@@ -66,26 +66,69 @@ std::vector<int> Graph::BFS(int node) const {
     return path;
 }
 std::vector<FullEdge> Graph::sortFullEdges() const {
-    std::vector<FullEdge> fullEdgesSorted;
+    std::vector<FullEdge> result;
+    // 1- On copie les arrêtes à trier dans une autre liste
     for (int i = 0; i < this->numberOfNodes; i++) {
         for (const Edge& e : getNeighbours(i)) {
             if (i < e.to) { // Une façon de gérer les doublons dans les graphes non orientés
-                fullEdgesSorted.push_back({i,e.to,e.dist}) ;
+                result.push_back({i,e.to,e.dist}) ;
             }
         }
     }
-    for (int i = 1; i < fullEdgesSorted.size(); i++) {
+    // 2- On trie les arrêtes dans l'ordre croissant
+    for (int i = 1; i < result.size(); i++) {
         int j = i;
-        while (j > 0 && fullEdgesSorted[j].dist < fullEdgesSorted[j-1].dist) {
-            FullEdge tmp = fullEdgesSorted[j];
-            fullEdgesSorted[j] = fullEdgesSorted[j-1];
-            fullEdgesSorted[j-1] = tmp;
+        while (j > 0 && result[j].dist < result[j-1].dist) {
+            FullEdge tmp = result[j];
+            result[j] = result[j-1];
+            result[j-1] = tmp;
             j--;
         }
     }
-    return fullEdgesSorted;
+    return result;
 }
-Graph Graph::Kruskal() {
-    Graph acpm;
 
+// union-find 
+    int find(std::vector<int>& parents, int x){
+        if (parents[x] != x){
+            return find(parents, parents[x]);
+        }
+        else {
+            return x;
+        }
+    }
+
+    void unite(std::vector<int>& parents, int x, int y){
+        int racineX = find(parents,x);
+        int racineY = find(parents,y);
+
+        if (racineX != racineY){
+            parents[racineY] = racineX; 
+        }
+    }
+
+    std::vector<int> initParents(const Graph& g){
+        std::vector<int> parents(g.getNumberOfNodes());
+        for (int i = 0; i < parents.size();i++){
+            parents[i] = i;
+        }
+        return parents;
+    }
+ACPM Graph::Kruskal() {
+    ACPM acpm(this->numberOfNodes);
+    std::vector<int> parents = initParents(*this);
+    std::vector<FullEdge> sortedEdges = this->sortFullEdges();
+    int numberOfEdges = 0;
+    int i = 0;
+    while(numberOfEdges < this->numberOfNodes - 1 && i < sortedEdges.size()){
+        int from = sortedEdges[i].from;
+        int to = sortedEdges[i].to;
+        if (find(parents,from) != find(parents,to)){
+            acpm.addEdge(from,to,sortedEdges[i].dist);
+            numberOfEdges++;
+            unite(parents,from,to);
+        }
+        i++;
+    }
+    return acpm;
 }
