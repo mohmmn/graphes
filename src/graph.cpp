@@ -91,14 +91,14 @@ std::vector<FullEdge> Graph::sortFullEdges() const {
 // union-find 
     int find(std::vector<int>& parents, int x){
         if (parents[x] != x){
-            find(parents,parents[x])
+            return find(parents, parents[x]);
         }
         else {
             return x;
         }
     }
 
-    void unite(std::vector<int>& parents,x,y){
+    void unite(std::vector<int>& parents, int x, int y){
         int racineX = find(parents,x);
         int racineY = find(parents,y);
 
@@ -108,7 +108,7 @@ std::vector<FullEdge> Graph::sortFullEdges() const {
     }
 
     std::vector<int> initParents(const Graph& g){
-        std::vector<int> parents(g.adjacencyList.size());
+        std::vector<int> parents(g->getNumberOfNodes());
         for (int i = 0; i < parents.size();i++){
             parents[i] = i;
         }
@@ -116,17 +116,19 @@ std::vector<FullEdge> Graph::sortFullEdges() const {
     }
 ACPM Graph::Kruskal() {
     ACPM acpm(this->numberOfNodes);
-    std::vector<int> parents = initParents(this);
+    std::vector<int> parents = initParents((*this));
     std::vector<FullEdge> sortedEdges = this->sortFullEdges();
-
+    int numberOfEdges = 0;
     int i = 0;
-    while(acpm.getNumberOfEdges < this->numberOfNodes - 1 && i > sortedEdges.size()){
-        int from = sortedEdge[i].from
-        int to = sortedEdge[i].to 
-        if (find(parents*,from) != find(parents*,to)){
-            acpm.addEdge(from,to,sortedEdge[i].dist);
-            unite(parents*,from,to)
+    while(numberOfEdges < this->numberOfNodes - 1 && i < sortedEdges.size()){
+        int from = sortedEdges[i].from;
+        int to = sortedEdges[i].to;
+        if (find(parents,from) != find(parents,to)){
+            acpm.addEdge(from,to,sortedEdges[i].dist);
+            numberOfEdges++;
+            unite(parents*,from,to);
         }
+        i++;
     }
     return acpm;
 }
