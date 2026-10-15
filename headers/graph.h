@@ -8,6 +8,9 @@ struct Edge {
     int dist;
 };
 
+// declaration anticipee : ACPM herite (indirectement) de Graph, donc on ne peut pas inclure acpm.h ici
+class ACPM;
+
 struct FullEdge {
     int from;
     int to;

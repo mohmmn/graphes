@@ -2,8 +2,8 @@
 
 OrientedGraph::OrientedGraph (int n) : Graph(n){}
 
-void OrientedGraph::addEdge(int u, int v){
-    this->adjacencyList[u].push_back(v);
+void OrientedGraph::addEdge(int u, int v, int dist){
+    this->adjacencyList[u].push_back({v,dist});
 }
 
 int OrientedGraph::getNumberOfEdges() const {
