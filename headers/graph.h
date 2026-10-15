@@ -40,11 +40,11 @@ public:
     std::vector<int> DFS(int node) const;
     std::vector<int> BFS(int node) const;
 
+    // algorithme de tri
+    std::vector<FullEdge> sortFullEdges() const;
     // algorithme pour les arbres couvrant de poids minimal
     ACPM Kruskal();
     ACPM Prim(int node);
-
-    // algorithme de tri
-    std::vector<FullEdge> sortFullEdges() const;
+    
 };
 #endif // GRAPH_H_

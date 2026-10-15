@@ -2,7 +2,7 @@
 // Created by simo on 02/10/2026.
 //
 #include "../headers/graph.h"
-
+#include "../headers/acpm.h"
 #include <queue>
 
 Graph::Graph(int n) {
@@ -88,6 +88,45 @@ std::vector<FullEdge> Graph::sortFullEdges() const {
     return result;
 }
 
-Graph Graph::Kruskal() {
-    Graph acpm = new Graph();
+// union-find 
+    int find(std::vector<int>& parents, int x){
+        if (parents[x] != x){
+            find(parents,parents[x])
+        }
+        else {
+            return x;
+        }
+    }
+
+    void unite(std::vector<int>& parents,x,y){
+        int racineX = find(parents,x);
+        int racineY = find(parents,y);
+
+        if (racineX != racineY){
+            parents[racineY] = racineX; 
+        }
+    }
+
+    std::vector<int> initParents(const Graph& g){
+        std::vector<int> parents(g.adjacencyList.size());
+        for (int i = 0; i < parents.size();i++){
+            parents[i] = i;
+        }
+        return parents;
+    }
+ACPM Graph::Kruskal() {
+    ACPM acpm(this->numberOfNodes);
+    std::vector<int> parents = initParents(this);
+    std::vector<FullEdge> sortedEdges = this->sortFullEdges();
+
+    int i = 0;
+    while(acpm.getNumberOfEdges < this->numberOfNodes - 1 && i > sortedEdges.size()){
+        int from = sortedEdge[i].from
+        int to = sortedEdge[i].to 
+        if (find(parents*,from) != find(parents*,to)){
+            acpm.addEdge(from,to,sortedEdge[i].dist);
+            unite(parents*,from,to)
+        }
+    }
+    return acpm;
 }
