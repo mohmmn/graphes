@@ -2,6 +2,7 @@
 // Created by simo on 02/10/2026.
 //
 #include "../headers/graph.h"
+#include "../headers/acpm.h"
 
 #include <queue>
 
@@ -88,6 +89,8 @@ std::vector<FullEdge> Graph::sortFullEdges() const {
     return result;
 }
 
-Graph Graph::Kruskal() {
-    Graph acpm = new Graph();
+ACPM Graph::Kruskal() {
+    ACPM acpm(this->numberOfNodes);
+    // TODO : algorithme de Kruskal
+    return acpm;
 }
