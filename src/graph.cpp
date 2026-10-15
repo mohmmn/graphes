@@ -66,12 +66,12 @@ std::vector<int> Graph::BFS(int node) const {
     return path;
 }
 std::vector<FullEdge> Graph::sortFullEdges() const {
-    std::vector<FullEdge> resultSortedEdges;
+    std::vector<FullEdge> result;
     // 1- On copie les arrêtes à trier dans une autre liste
     for (int i = 0; i < this->numberOfNodes; i++) {
         for (const Edge& e : getNeighbours(i)) {
             if (i < e.to) { // Une façon de gérer les doublons dans les graphes non orientés
-                resultSortedEdges.push_back({i,e.to,e.dist}) ;
+                result.push_back({i,e.to,e.dist}) ;
             }
         }
     }
@@ -89,6 +89,5 @@ std::vector<FullEdge> Graph::sortFullEdges() const {
 }
 
 Graph Graph::Kruskal() {
-    Graph acpm;
-
+    Graph acpm = new Graph();
 }

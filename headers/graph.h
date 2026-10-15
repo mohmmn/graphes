@@ -13,17 +13,6 @@ struct FullEdge {
     int to;
     int dist;
 };
-std::vector<FullEdge> sortFullEdge(){
-    for (int i = 1; i < fullEdgesSorted.size(); i++) {
-        int j = i;
-        while (j > 0 && fullEdgesSorted[j].dist < fullEdgesSorted[j-1].dist) {
-            FullEdge tmp = fullEdgesSorted[j];
-            fullEdgesSorted[j] = fullEdgesSorted[j-1];
-            fullEdgesSorted[j-1] = tmp;
-            j--;
-        }
-    }
-}
 
 class Graph {
 protected:
@@ -52,8 +41,8 @@ public:
     std::vector<int> BFS(int node) const;
 
     // algorithme pour les arbres couvrant de poids minimal
-    Graph Kruskal();
-    Graph Prim(int node);
+    ACPM Kruskal();
+    ACPM Prim(int node);
 
     // algorithme de tri
     std::vector<FullEdge> sortFullEdges() const;

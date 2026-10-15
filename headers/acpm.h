@@ -2,13 +2,11 @@
 #define ACPM_H_
 
 #include "graph.h"
+#include "nonOrientedGraph.h"
 
-class ACPM : public Graph {
+class ACPM : public NonOrientedGraph {
     public:
     ACPM(int n);
-    void addEdge(int u, int v, int dist) override;
-    int getNumberOfEdges() const override;
-    void addNode(int n);
 };
-#endif // NONORIENTEDGRAPH_H_
+#endif // ACPM_H_
 
