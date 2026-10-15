@@ -13,6 +13,18 @@ struct FullEdge {
     int to;
     int dist;
 };
+std::vector<FullEdge> sortFullEdge(){
+    for (int i = 1; i < fullEdgesSorted.size(); i++) {
+        int j = i;
+        while (j > 0 && fullEdgesSorted[j].dist < fullEdgesSorted[j-1].dist) {
+            FullEdge tmp = fullEdgesSorted[j];
+            fullEdgesSorted[j] = fullEdgesSorted[j-1];
+            fullEdgesSorted[j-1] = tmp;
+            j--;
+        }
+    }
+}
+
 class Graph {
 protected:
     std::vector<std::vector<Edge>> adjacencyList;
