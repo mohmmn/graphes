@@ -1,6 +1,7 @@
 # Graphes en C++ : parcours, héritage et arbres couvrants
 
-Mini-projet personnel (réalisé **sans IA**) qui relie deux cours : **C++ (programmation orientée objet)** et **algorithmique des graphes**.
+Mini-projet personnel qui relie deux cours : **C++ (programmation orientée objet)** et **algorithmique des graphes**.
+**L'IA a été utilisé pour rédiger certains tests fonctionnels et réorganiser le readme, pas pour le code** 
 
 Défis : implémenter une classe `Graph` de base en C++, dont héritent un graphe **orienté** (`OrientedGraph`) et un graphe **non orienté** (`NonOrientedGraph`), y appliquer les parcours **DFS** et **BFS**, puis calculer un **arbre couvrant de poids minimal** (ACPM) avec l'algorithme de **Kruskal**. Le projet continue d'évoluer au fil du temps (Prim est la prochaine étape).
 
